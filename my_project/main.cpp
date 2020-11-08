@@ -3,6 +3,7 @@
 #include <fstream>
 
 using namespace sf;
+using namespace std;
 const float weight = 650;
 const float height = 650;
 Texture texture[3];
@@ -14,6 +15,7 @@ int main() {
     texture[0].loadFromFile("images/play-button.png");
     texture[1].loadFromFile("images/refresh-button.png");
     texture[2].loadFromFile("images/board.png");
+ 
     rectangle.setSize(Vector2f(weight, height));
     sprite[0].setTexture(texture[0]);
     sprite[1].setTexture(texture[1]);
