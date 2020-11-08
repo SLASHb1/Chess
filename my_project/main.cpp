@@ -20,11 +20,9 @@ int main() {
     sprite[0].setTexture(texture[0]);
     sprite[1].setTexture(texture[1]);
     sprite[2].setTexture(texture[2]);
-    sprite[0].setScale(2.0f, 2.0f);
-    sprite[1].setScale(2.0f, 2.0f);
     sprite[2].setScale(0.73f, 0.73f);
-    sprite[0].setPosition(120, 20);
-    sprite[1].setPosition(400, 20);
+    sprite[0].setPosition(55, 60);
+    sprite[1].setPosition(30, 160);
     sprite[2].setPosition(0, 0);
     rectangle.setFillColor(Color::White);
     while (window.isOpen()) {

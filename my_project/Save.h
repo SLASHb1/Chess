@@ -3,17 +3,17 @@
 #include <fstream>
 
 using namespace sf;
-class Save {
+class save {
 private:
     float W = 650;
     float H = 650;
 public:
-    Save() {
+    save() {
     }
     bool smain()
     {
         sf::RenderWindow
-            window(sf::VideoMode(W, H), "Chess The Game Of Kings!");
+            window(sf::VideoMode(W, H), "Chess");
         sf::Texture texture[2];
         sf::Sprite sprite[2];
         texture[0].loadFromFile("images/save-disk.png");

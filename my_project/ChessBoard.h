@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "utilityBox.h"
-#include "save.h"
+#include "Save.h"
 #include <fstream>
 
 using namespace sf;
@@ -47,8 +47,7 @@ void ChessBoard::loadtextures(Texture texture[64]) {
             texture[i].loadFromFile("images/blackQueen.png");
         if (spritepositions[i] == 4)
             texture[i].loadFromFile("images/blackKing.png");
-        if (spritepositions[i] >= 8 and
-            spritepositions[i] <= 15)
+        if (spritepositions[i] >= 8 && spritepositions[i] <= 15)
             texture[i].loadFromFile("images/blackPawn.png");
         if (spritepositions[i] == 63 || spritepositions[i] == 56)
             texture[i].loadFromFile("images/whiteRook.png");
@@ -60,8 +59,7 @@ void ChessBoard::loadtextures(Texture texture[64]) {
             texture[i].loadFromFile("images/whiteQueen.png");
         if (spritepositions[i] == 60)
             texture[i].loadFromFile("images/whiteKing.png");
-        if (spritepositions[i] >= 48 and
-            spritepositions[i] <= 55)
+        if (spritepositions[i] >= 48 && spritepositions[i] <= 55)
             texture[i].loadFromFile("images/whitePawn.png");
     }
 }
@@ -91,7 +89,7 @@ void ChessBoard::loadboard(Texture texture[64], RectangleShape rectangle[64], Sp
 
 void ChessBoard::MainFunctions(int u) {
     sf::RenderWindow
-        window(sf::VideoMode(WIDTH, HEIGTH), "Chess The Game Of Kings!");
+        window(sf::VideoMode(WIDTH, HEIGTH), "Chess");
     sf::RectangleShape rectangle[64];
     sf::Texture texture[65];
     sf::Sprite sprite[65];
@@ -115,7 +113,7 @@ void ChessBoard::MainFunctions(int u) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
-                Save s;
+                save s;
                 window.close();
                 if (s.smain()) {
                     ofstream out, out2;
@@ -132,8 +130,7 @@ void ChessBoard::MainFunctions(int u) {
             if (u != 0) {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
                     for (int j = 0; j < 64; ++j) {
-                        if (turn % 2 == 0 and
-                            board[j] < 0) {
+                        if (turn % 2 == 0 && board[j] < 0) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 n = j;
                                 firstpos = rectangle[j].getPosition();
@@ -146,8 +143,7 @@ void ChessBoard::MainFunctions(int u) {
                         }
                     }
                     for (int j = 0; j < 64; ++j) {
-                        if (turn % 2 != 0 and
-                            board[j] > 0) {
+                        if (turn % 2 != 0 && board[j] > 0) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 n = j;
                                 firstpos = rectangle[j].getPosition();
@@ -177,7 +173,7 @@ void ChessBoard::MainFunctions(int u) {
                                         spritepositions[j] = spritepositions[n];
                                         spritepositions[n] = 64;
                                         if (board[j] == -5 || board[j] == 5) {
-                                            Save s;
+                                            save s;           
                                             window.close();
                                             if (s.smain()) {
                                                 ofstream out, out2;
@@ -191,16 +187,10 @@ void ChessBoard::MainFunctions(int u) {
                                                 out2.close();
                                             }
                                         }
-                                        if (j <= 63 and
-                                            j >= 56
-                                            and
-                                            board[n] == -6) {
+                                        if (j <= 63 && j >= 56 && board[n] == -6) {
                                             board[j] = -4;
                                         }
-                                        else if (j >= 0 and
-                                            j <= 7
-                                            and
-                                            board[n] == 6) {
+                                        else if (j >= 0 && j <= 7 && board[n] == 6) {
                                             board[j] = 4;
                                         }
                                         else {
