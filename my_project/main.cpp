@@ -4,19 +4,19 @@
 
 using namespace sf;
 using namespace std;
-const float weight = 650;
+const float width = 650;
 const float height = 650;
 Texture texture[3];
 Sprite sprite[3];
 RectangleShape rectangle;
 
 int main() {
-    RenderWindow window(VideoMode(weight, height), "Chess");
+    RenderWindow window(VideoMode(width, height), "Chess");
     texture[0].loadFromFile("images/play-button.png");
     texture[1].loadFromFile("images/refresh-button.png");
     texture[2].loadFromFile("images/board.png");
  
-    rectangle.setSize(Vector2f(weight, height));
+    rectangle.setSize(Vector2f(width, height));
     sprite[0].setTexture(texture[0]);
     sprite[1].setTexture(texture[1]);
     sprite[2].setTexture(texture[2]);

@@ -26,8 +26,8 @@ int board[64] = {
         1, 2, 3, 4, 5, 3, 2, 1 };
 class ChessBoard {
 private:
-    const float WIDTH = 650;
-    const float HEIGTH = 650;
+    const float width = 650;
+    const float height = 650;
 public:
     void loadtextures(Texture texture[64]);
     void loadboard(Texture texture[64], RectangleShape rectangle[64], Sprite sprite[64]);
@@ -70,29 +70,29 @@ void ChessBoard::loadboard(Texture texture[64], RectangleShape rectangle[64], Sp
         sprite[j].setScale(1.7f, 1.7f);
     }
     for (int j = 0; j < 64; ++j) {
-        rectangle[j].setSize(sf::Vector2f(WIDTH / 8.0f, HEIGTH / 8.0f));
+        rectangle[j].setSize(Vector2f(width / 8.0f, height / 8.0f));
     }
     int counter = 0;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             rectangle[counter].setPosition(j * rectangle[counter].getSize().y,
-                i * rectangle[counter].getSize().x);  ///x,y
+                i * rectangle[counter].getSize().x);
             sprite[counter].setPosition(j * rectangle[counter].getSize().y, i * rectangle[counter].getSize().x);
             if ((i + j) % 2 == 0)
-                rectangle[counter].setFillColor(sf::Color::White);
+                rectangle[counter].setFillColor(Color::White);
             else
-                rectangle[counter].setFillColor(sf::Color::Blue);
+                rectangle[counter].setFillColor(Color::Blue);
             counter++;
         }
     }
 }
 
 void ChessBoard::MainFunctions(int u) {
-    sf::RenderWindow
-        window(sf::VideoMode(WIDTH, HEIGTH), "Chess");
-    sf::RectangleShape rectangle[64];
-    sf::Texture texture[65];
-    sf::Sprite sprite[65];
+    RenderWindow
+        window(VideoMode(width, height), "Chess");
+    RectangleShape rectangle[64];
+    Texture texture[65];
+    Sprite sprite[65];
     loadtextures(texture);
     loadboard(texture, rectangle, sprite);
     Identity box;
@@ -110,9 +110,9 @@ void ChessBoard::MainFunctions(int u) {
         q[j] = 64;
     while (window.isOpen()) {
         Vector2i pos = Mouse::getPosition(window);
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+            if (event.type == Event::Closed) {
                 save s;
                 window.close();
                 if (s.smain()) {
@@ -128,14 +128,14 @@ void ChessBoard::MainFunctions(int u) {
                 }
             }
             if (u != 0) {
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                if (Mouse::isButtonPressed(Mouse::Right)) {
                     for (int j = 0; j < 64; ++j) {
                         if (turn % 2 == 0 && board[j] < 0) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 n = j;
                                 firstpos = rectangle[j].getPosition();
                                 v = spritepositions[j];
-                                rectangle[n].setFillColor(sf::Color::Red);
+                                rectangle[n].setFillColor(Color::Red);
                                 if (spritepositions[n] != 64)
 
                                     cap++;
@@ -148,7 +148,7 @@ void ChessBoard::MainFunctions(int u) {
                                 n = j;
                                 firstpos = rectangle[j].getPosition();
                                 v = spritepositions[j];
-                                rectangle[n].setFillColor(sf::Color::Red);
+                                rectangle[n].setFillColor(Color::Red);
                                 if (spritepositions[n] != 64)
                                     cap++;
                             }
@@ -157,7 +157,7 @@ void ChessBoard::MainFunctions(int u) {
 
                 }
                 if (cap != 0)
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                    if (Mouse::isButtonPressed(Mouse::Left)) {
                         for (int j = 0; j < 64; ++j) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 isMove = box.identifier(n, j, board[n], board);
@@ -204,10 +204,10 @@ void ChessBoard::MainFunctions(int u) {
                                 for (int i = 0; i < 8; ++i) {
                                     for (int j = 0; j < 8; ++j) {
                                         if ((i + j) % 2 == 0) {
-                                            rectangle[counter].setFillColor(sf::Color::White);
+                                            rectangle[counter].setFillColor(Color::White);
                                         }
                                         else {
-                                            rectangle[counter].setFillColor(sf::Color::Blue);
+                                            rectangle[counter].setFillColor(Color::Blue);
                                         }
                                         counter++;
                                     }

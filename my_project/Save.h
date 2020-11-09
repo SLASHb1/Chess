@@ -5,17 +5,16 @@
 using namespace sf;
 class save {
 private:
-    float W = 650;
-    float H = 650;
+    float width = 650;
+    float height = 650;
 public:
     save() {
     }
     bool smain()
     {
-        sf::RenderWindow
-            window(sf::VideoMode(W, H), "Chess");
-        sf::Texture texture[2];
-        sf::Sprite sprite[2];
+        RenderWindow window(VideoMode(width, height), "Chess");
+        Texture texture[2];
+        Sprite sprite[2];
         texture[0].loadFromFile("images/save-disk.png");
         texture[1].loadFromFile("images/gameOver.png");
         sprite[0].setTexture(texture[0]);
@@ -26,11 +25,11 @@ public:
         sprite[1].setPosition(0, 0);
         while (window.isOpen()) {
             Vector2i pos = Mouse::getPosition(window);
-            sf::Event event;
+            Event event;
             while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
+                if (event.type == Event::Closed)
                     window.close();
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Right) || sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                if (Mouse::isButtonPressed(Mouse::Right) || Mouse::isButtonPressed(Mouse::Left)) {
                     if (sprite[0].getGlobalBounds().contains(pos.x, pos.y)) {
                         return true;
                         window.close();
