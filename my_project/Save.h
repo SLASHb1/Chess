@@ -3,16 +3,16 @@
 #include <fstream>
 
 using namespace sf;
+
 class save {
 private:
-    float width = 650;
-    float height = 650;
+    float W = 650;
+    float H = 650;
 public:
-    save() {
-    }
-    bool smain()
-    {
-        RenderWindow window(VideoMode(width, height), "Chess");
+    save() = default;
+
+    bool sMain() {
+        RenderWindow window(VideoMode(W, H), "Chess The Game Of Kings!");
         Texture texture[2];
         Sprite sprite[2];
         texture[0].loadFromFile("images/save-disk.png");
@@ -27,8 +27,9 @@ public:
             Vector2i pos = Mouse::getPosition(window);
             Event event;
             while (window.pollEvent(event)) {
-                if (event.type == Event::Closed)
+                if (event.type == Event::Closed) {
                     window.close();
+                }
                 if (Mouse::isButtonPressed(Mouse::Right) || Mouse::isButtonPressed(Mouse::Left)) {
                     if (sprite[0].getGlobalBounds().contains(pos.x, pos.y)) {
                         return true;
@@ -41,6 +42,6 @@ public:
             window.draw(sprite[0]);
             window.display();
         }
-        return 0;
+        return false;
     }
 };
