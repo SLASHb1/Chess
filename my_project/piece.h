@@ -3,24 +3,24 @@
 
 using namespace std;
 
-class Piece {
+class piece {
 private:
-    int arrayOfChess[64];
+    int arrayOfChess[64]{};
 public:
-    Piece(int Chess[]);
+    explicit piece(const int Chess[]);
 
     bool isTileOccupied(int tile);
 
-    string pieceAlliance(int tile, string alliance);
+    string pieceAlliance(int tile, const string& alliance);
 };
 
-Piece::Piece(int* Chess) {
+piece::piece(const int* Chess) {
     for (unsigned i = 0; i < 64; ++i) {
         arrayOfChess[i] = Chess[i];
     }
 }
 
-bool Piece::isTileOccupied(int tile) {
+bool piece::isTileOccupied(int tile) {
     if (arrayOfChess[tile] == 0) {
         return false;
     }
@@ -29,7 +29,7 @@ bool Piece::isTileOccupied(int tile) {
     }
 }
 
-string Piece::pieceAlliance(int tile, string alliance) {
+string piece::pieceAlliance(int tile, const string& alliance) {
     if (alliance == "white") {
         if (arrayOfChess[tile] < 0) {
             return "black";

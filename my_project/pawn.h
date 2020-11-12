@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "piece.h"
 
@@ -8,18 +9,18 @@ class pawn {
 private:
     const int CANDIDATE_MOVE_COORDINATES[4] = { 7, 8, 9, 16 };
     int pieceTile;
-    int arrOfChess[64];
+    int arrOfChess[64]{};
     string alliance;
     signed int direction;
 
 public:
-    pawn(int Tile, string alliance, int chess[]);
+    pawn(int Tile, string alliance, const int chess[]);
 
-    bool isValidTileCoordinate(int currentCandidate);
+    static bool isValidTileCoordinate(int currentCandidate);
 
-    bool eighthColumn(int tile);
+    static bool eighthColumn(int tile);
 
-    bool firstColumn(int tile);
+    static bool firstColumn(int tile);
 
     bool isFirstMove(int tile);
 
@@ -27,12 +28,12 @@ public:
 
 };
 
-pawn::pawn(int Tile, string alliance, int* chess) {
+pawn::pawn(int Tile, string alliance, const int* chess) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
     this->pieceTile = Tile;
-    this->alliance = alliance;
+    this->alliance = move(alliance);
     if (this->alliance == "white") {
         direction = -1;
     }
@@ -96,7 +97,7 @@ bool pawn::isFirstMove(int tile) {
 }
 
 vector<int> pawn::getLegalMoves() {
-    Piece destinationTile(arrOfChess);
+    piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

@@ -34,7 +34,7 @@ public:
 
     void loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* sprite);
 
-    void MainFunctions(int u);
+    void mainFunctions(int u);
 };
 
 void ChessBoard::loadTextures(Texture* texture) {
@@ -91,7 +91,7 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
     }
 }
 
-void ChessBoard::MainFunctions(int u) {
+void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(WIDTH, HEIGHT), "Chess The Game Of Kings!");
     RectangleShape rectangle[64];
     Texture texture[65];
@@ -165,7 +165,7 @@ void ChessBoard::MainFunctions(int u) {
                         for (int j = 0; j < 64; ++j) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 isMove = box.identifier(n, j, board[n], board);
-                                    secondPos = rectangle[j].getPosition();
+                                secondPos = rectangle[j].getPosition();
                                 int spritePos = spritePositions[n];
                                 if (isMove) {
                                     turn++;

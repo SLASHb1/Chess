@@ -9,7 +9,7 @@ using namespace std;
 
 class Identity {
 public:
-    bool chessKing(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessKing(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         king king1(initialTile, alliance, arrOfChess);
         vector<int> v1;
         v1 = king1.getLegalMoves();
@@ -21,7 +21,7 @@ public:
         return false;
     }
 
-    bool chessQueen(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessQueen(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         queen queen1(initialTile, alliance, arrOfChess);
         vector<int> v2;
         v2 = queen1.getLegalMoves();
@@ -33,7 +33,7 @@ public:
         return false;
     }
 
-    bool chessPawn(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessPawn(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         pawn pawn1(initialTile, alliance, arrOfChess);
         vector<int> v3;
         v3 = pawn1.getLegalMoves();
@@ -45,7 +45,7 @@ public:
         return false;
     }
 
-    bool chessRook(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessRook(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         rook rook1(initialTile, alliance, arrOfChess);
         vector<int> v4;
         v4 = rook1.getLegalMoves();
@@ -57,7 +57,7 @@ public:
         return false;
     }
 
-    bool chessBishop(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessBishop(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         bishop bishop1(initialTile, alliance, arrOfChess);
         vector<int> v5;
         v5 = bishop1.getLegalMoves();
@@ -69,7 +69,7 @@ public:
         return false;
     }
 
-    bool chessKnight(int initialTile, int finalTile, string alliance, int* arrOfChess) {
+    static bool chessKnight(int initialTile, int finalTile, string alliance, int* arrOfChess) {
         knight knight1(initialTile, alliance, arrOfChess);
         vector<int> v6;
         v6 = knight1.getLegalMoves();
@@ -81,7 +81,7 @@ public:
         return false;
     }
 
-    string checkAlliance(int piece) {
+    static string checkAlliance(int piece) {
         if (piece > 0) {
             return "white";
         }
@@ -90,7 +90,7 @@ public:
         }
     }
 
-    bool identifier(int initialTile, int finalTile, int piece, int* arrOfChess) {
+    static bool identifier(int initialTile, int finalTile, int piece, int* arrOfChess) {
         string alliance = checkAlliance(piece);
         if (piece == -1 || piece == 1) {
             return chessRook(initialTile, finalTile, alliance, arrOfChess);

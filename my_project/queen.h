@@ -12,18 +12,18 @@ private:
     string alliance;
     int arrOfChess[64]{};
 public:
-    queen(const int Tile, string alliance, int chess[]);
+    queen(int Tile, string alliance, const int chess[]);
 
-    bool isValidTileCoordinate(int currentCandidate);
+    static bool isValidTileCoordinate(int currentCandidate);
 
-    bool firstColumn(int tile, int offset);
+    static bool firstColumn(int tile, int offset);
 
-    bool eighthColumn(int tile, int offset);
+    static bool eighthColumn(int tile, int offset);
 
     vector<int> getLegalMoves();
 };
 
-queen::queen(const int Tile, string alliance, int chess[]) {
+queen::queen(const int Tile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
@@ -66,7 +66,7 @@ bool queen::eighthColumn(int tile, int offset) {
 }
 
 vector<int> queen::getLegalMoves() {
-    Piece destinationTile(arrOfChess);
+    piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

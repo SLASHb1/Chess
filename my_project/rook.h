@@ -1,6 +1,5 @@
-#pragma once
-
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "piece.h"
 
@@ -11,25 +10,25 @@ private:
     const int CANDIDATE_MOVE_COORDINATES[4] = { -8, -1, 1, 8 };
     int pieceTile;
     string alliance;
-    int arrOfChess[64];
+    int arrOfChess[64]{};
 public:
-    rook(const int Tile, string alliance, int chess[]);
+    rook(int Tile, string alliance, const int chess[]);
 
-    bool isValidTileCoordinate(int currentCandidate);
+    static bool isValidTileCoordinate(int currentCandidate);
 
-    bool firstColumn(int tile, int offset);
+    static bool firstColumn(int tile, int offset);
 
-    bool eighthColumn(int tile, int offset);
+    static bool eighthColumn(int tile, int offset);
 
     vector<int> getLegalMoves();
 };
 
-rook::rook(const int Tile, string alliance, int chess[]) {
+rook::rook(const int Tile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
     this->pieceTile = Tile;
-    this->alliance = alliance;
+    this->alliance = move(alliance);
 }
 
 bool rook::isValidTileCoordinate(int currentCandidate) {
@@ -67,7 +66,7 @@ bool rook::eighthColumn(int tile, int offset) {
 }
 
 vector<int> rook::getLegalMoves() {
-    Piece destinationTile(arrOfChess);
+    piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

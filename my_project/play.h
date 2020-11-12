@@ -44,7 +44,7 @@ class play{
             if (sprite[0].getGlobalBounds().contains(pos.x,pos.y)){
               window.close();
               ChessBoard graphics;
-              graphics.MainFunctions(1);
+              graphics.mainFunctions(1);
             }
             if (sprite[1].getGlobalBounds().contains(pos.x,pos.y)){
               window.close();
@@ -59,7 +59,7 @@ class play{
                 in2>>b>>d;
                 board[j]=b;}
               ChessBoard graphics;
-              graphics.MainFunctions(0);
+              graphics.mainFunctions(0);
             }
             }
       }

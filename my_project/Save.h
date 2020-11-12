@@ -5,14 +5,11 @@
 using namespace sf;
 
 class save {
-private:
-    float W = 650;
-    float H = 650;
 public:
     save() = default;
 
-    bool sMain() {
-        RenderWindow window(VideoMode(W, H), "Chess The Game Of Kings!");
+    static bool sMain() {
+        RenderWindow window(VideoMode(650, 650), "Chess The Game Of Kings!");
         Texture texture[2];
         Sprite sprite[2];
         texture[0].loadFromFile("images/save-disk.png");

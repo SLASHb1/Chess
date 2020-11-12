@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "piece.h"
 
@@ -9,15 +10,15 @@ private:
     const int CANDIDATE_MOVE_COORDINATES[8] = { -9, -8, -7, -1, 1, 8, 7, 9 };
     int pieceTile;
     string alliance;
-    int arrOfChess[64];
+    int arrOfChess[64]{};
 public:
     king(int pieceTile, string alliance, const int chess[]);
 
-    bool isValidTileCoordinate(int currentCandidate);
+    static bool isValidTileCoordinate(int currentCandidate);
 
-    bool firstColumn(int pieceTile, int offset);
+    static bool firstColumn(int pieceTile, int offset);
 
-    bool eighthColumn(int pieceTile, int offset);
+    static bool eighthColumn(int pieceTile, int offset);
 
     vector<int> getLegalMoves();
 };
@@ -27,7 +28,7 @@ king::king(int pieceTile, string alliance, const int chess[]) {
         arrOfChess[i] = chess[i];
     }
     this->pieceTile = pieceTile;
-    this->alliance = alliance;
+    this->alliance = move(alliance);
 }
 
 bool king::isValidTileCoordinate(int currentCandidate) {
@@ -65,7 +66,7 @@ bool king::eighthColumn(int pieceTile, int offset) {
 }
 
 vector<int> king::getLegalMoves() {
-    Piece destinationTile(arrOfChess);
+    piece destinationTile(arrOfChess);
     int possibleDestinationTile = this->pieceTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

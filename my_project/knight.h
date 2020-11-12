@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include <vector>
 #include "piece.h"
 
@@ -9,30 +10,30 @@ private:
     const int CANDIDATE_MOVE_COORDINATES[8] = { -17, -15, -10, -6, 6, 10, 15, 17 };
     int pieceTile;
     string alliance;
-    int arrOfChess[64];
+    int arrOfChess[64]{};
 
 public:
-    knight(int pieceTile, string alliance, int chess[]);
+    knight(int pieceTile, string alliance, const int chess[]);
 
-    bool isValidTileCoordinate(int currentCandidate);
+    static bool isValidTileCoordinate(int currentCandidate);
 
-    bool firstColumn(int pieceTile, int offset);
+    static bool firstColumn(int pieceTile, int offset);
 
-    bool secondColumn(int pieceTile, int offset);
+    static bool secondColumn(int pieceTile, int offset);
 
-    bool seventhColumn(int pieceTile, int offset);
+    static bool seventhColumn(int pieceTile, int offset);
 
-    bool eighthColumn(int pieceTile, int offset);
+    static bool eighthColumn(int pieceTile, int offset);
 
     vector<int> getLegalMoves();
 };
 
-knight::knight(int pieceTile, string alliance, int chess[]) {
+knight::knight(int pieceTile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
     this->pieceTile = pieceTile;
-    this->alliance = alliance;
+    this->alliance = move(alliance);
 }
 
 bool knight::isValidTileCoordinate(int currentCandidate) {
@@ -100,7 +101,7 @@ bool knight::eighthColumn(int pieceTile, int offset) {
 }
 
 vector<int> knight::getLegalMoves() {
-    Piece destinationTile(arrOfChess);
+    piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

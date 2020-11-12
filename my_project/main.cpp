@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
-#include "play.h"
+#include "ChessBoard.h"
 
 using namespace sf;
 Texture texture[3];
@@ -9,14 +9,13 @@ Sprite sprite[3];
 RectangleShape rectangle;
 
 int main() {
-    RenderWindow
-        window(VideoMode(w, h), "Chess The Game Of Kings!");
+    RenderWindow window(VideoMode(650, 650), "Chess The Game Of Kings!");
 
     texture[0].loadFromFile("images/play-button.png");
     texture[1].loadFromFile("images/refresh-button.png");
     texture[2].loadFromFile("images/board.png");
 
-    rectangle.setSize(Vector2f(w, h));
+    rectangle.setSize(Vector2f(650, 650));
     sprite[0].setTexture(texture[0]);
     sprite[1].setTexture(texture[1]);
     sprite[2].setTexture(texture[2]);
@@ -25,7 +24,6 @@ int main() {
     sprite[1].setPosition(40, 140);
     sprite[2].setPosition(0, 0);
     rectangle.setFillColor(Color::White);
-
 
     while (window.isOpen()) {
         Vector2i pos = Mouse::getPosition(window);
@@ -38,7 +36,7 @@ int main() {
                 if (sprite[0].getGlobalBounds().contains(pos.x, pos.y)) {
                     window.close();
                     ChessBoard graphics;
-                    graphics.MainFunctions(1);
+                    graphics.mainFunctions(1);
                 }
                 if (sprite[1].getGlobalBounds().contains(pos.x, pos.y)) {
                     window.close();
@@ -54,7 +52,7 @@ int main() {
                         board[j] = b;
                     }
                     ChessBoard graphics;
-                    graphics.MainFunctions(0);
+                    graphics.mainFunctions(0);
                 }
             }
         }
