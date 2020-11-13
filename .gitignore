@@ -42,7 +42,5 @@ my_project/.vs/*
 *.vcxproj
 *.filters
 *.user
-boardpositions.txt
-spritepositions.txt
 my_project/boardpositions.txt
 my_project/spritepositions.txt
