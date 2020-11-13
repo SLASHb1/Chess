@@ -11,11 +11,10 @@ using namespace std;
 class Identity {
 public:
     static bool chessKing(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<king> king(new king(initialTile, alliance, arrOfChess));
-        vector<int> v1;
-        v1 = king->getLegalMoves();
-        for (vector<int>::iterator it1 = v1.begin(); it1 != v1.end(); ++it1) {
-            if (*it1 == finalTile) {
+        unique_ptr<King> king(new King(initialTile, alliance, arrOfChess));
+        vector<int> vtr = king->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }
@@ -23,11 +22,10 @@ public:
     }
 
     static bool chessQueen(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<queen> queen(new queen(initialTile, alliance, arrOfChess));
-        vector<int> v2;
-        v2 = queen->getLegalMoves();
-        for (vector<int>::iterator it2 = v2.begin(); it2 != v2.end(); ++it2) {
-            if (*it2 == finalTile) {
+        unique_ptr<Queen> queen(new Queen(initialTile, alliance, arrOfChess));
+        vector<int> vtr = queen->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }
@@ -35,11 +33,10 @@ public:
     }
 
     static bool chessPawn(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<pawn> pawn(new pawn(initialTile, alliance, arrOfChess));
-        vector<int> v3;
-        v3 = pawn->getLegalMoves();
-        for (vector<int>::iterator it3 = v3.begin(); it3 != v3.end(); ++it3) {
-            if (*it3 == finalTile) {
+        unique_ptr<Pawn> pawn(new Pawn(initialTile, alliance, arrOfChess));
+        vector<int> vtr = pawn->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }
@@ -47,11 +44,10 @@ public:
     }
 
     static bool chessRook(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<rook> rook(new rook(initialTile, alliance, arrOfChess));
-        vector<int> v4;
-        v4 = rook->getLegalMoves();
-        for (vector<int>::iterator it4 = v4.begin(); it4 != v4.end(); ++it4) {
-            if (*it4 == finalTile) {
+        unique_ptr<Rook> rook(new Rook(initialTile, alliance, arrOfChess));
+        vector<int> vtr = rook->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }
@@ -59,11 +55,10 @@ public:
     }
 
     static bool chessBishop(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<bishop> bishop(new bishop(initialTile, alliance, arrOfChess));
-        vector<int> v5;
-        v5 = bishop->getLegalMoves();
-        for (vector<int>::iterator it5 = v5.begin(); it5 != v5.end(); ++it5) {
-            if (*it5 == finalTile) {
+        unique_ptr<Bishop> bishop(new Bishop(initialTile, alliance, arrOfChess));
+        vector<int> vtr = bishop->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }
@@ -71,11 +66,10 @@ public:
     }
 
     static bool chessKnight(int initialTile, int finalTile, string alliance, int* arrOfChess) {
-        unique_ptr<knight> knight(new knight(initialTile, alliance, arrOfChess));
-        vector<int> v6;
-        v6 = knight->getLegalMoves();
-        for (vector<int>::iterator it6 = v6.begin(); it6 != v6.end(); ++it6) {
-            if (*it6 == finalTile) {
+        unique_ptr<Knight> knight(new Knight(initialTile, alliance, arrOfChess));
+        vector<int> vtr = knight->getLegalMoves();
+        for (vector<int>::iterator it = vtr.begin(); it != vtr.end(); ++it) {
+            if (*it == finalTile) {
                 return true;
             }
         }

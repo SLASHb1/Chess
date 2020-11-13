@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class knight {
+class Knight {
 private:
     const int CANDIDATE_MOVE_COORDINATES[8] = { -17, -15, -10, -6, 6, 10, 15, 17 };
     int pieceTile;
@@ -13,7 +13,7 @@ private:
     int arrOfChess[64]{};
 
 public:
-    knight(int pieceTile, string alliance, const int chess[]);
+    Knight(int pieceTile, string alliance, const int chess[]);
 
     static bool isValidTileCoordinate(int currentCandidate);
 
@@ -28,7 +28,7 @@ public:
     vector<int> getLegalMoves();
 };
 
-knight::knight(int pieceTile, string alliance, const int chess[]) {
+Knight::Knight(int pieceTile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
@@ -36,11 +36,11 @@ knight::knight(int pieceTile, string alliance, const int chess[]) {
     this->alliance = move(alliance);
 }
 
-bool knight::isValidTileCoordinate(int currentCandidate) {
+bool Knight::isValidTileCoordinate(int currentCandidate) {
     return currentCandidate >= 0 && currentCandidate < 64;
 }
 
-bool knight::firstColumn(int pieceTile, int offset) {
+bool Knight::firstColumn(int pieceTile, int offset) {
     int firstColumnArr[] = { 0, 8, 16, 24, 32, 40, 43, 56 };
     bool temp = false;
     for (int i : firstColumnArr) {
@@ -55,7 +55,7 @@ bool knight::firstColumn(int pieceTile, int offset) {
     return temp && ((offset == -17) || (offset == -10) || (offset == 6) || (offset == 15));
 }
 
-bool knight::secondColumn(int pieceTile, int offset) {
+bool Knight::secondColumn(int pieceTile, int offset) {
     int secondColumnArr[] = { 1, 9, 17, 25, 33, 41, 49, 55 };
     bool temp = false;
     for (int i : secondColumnArr) {
@@ -70,7 +70,7 @@ bool knight::secondColumn(int pieceTile, int offset) {
     return temp && ((offset == -10) || (offset == 6));
 }
 
-bool knight::seventhColumn(int pieceTile, int offset) {
+bool Knight::seventhColumn(int pieceTile, int offset) {
     int seventhColumnArr[] = { 6, 14, 22, 30, 38, 46, 54, 62 };
     bool temp = false;
     for (int i : seventhColumnArr) {
@@ -85,7 +85,7 @@ bool knight::seventhColumn(int pieceTile, int offset) {
     return temp && ((offset == -6) || (offset == 10));
 }
 
-bool knight::eighthColumn(int pieceTile, int offset) {
+bool Knight::eighthColumn(int pieceTile, int offset) {
     int eighthColumnArr[] = { 7, 15, 23, 31, 39, 47, 55, 63 };
     bool temp = false;
     for (int i : eighthColumnArr) {
@@ -100,8 +100,8 @@ bool knight::eighthColumn(int pieceTile, int offset) {
     return temp && ((offset == -15) || (offset == -6) || (offset == 10) || (offset == 17));
 }
 
-vector<int> knight::getLegalMoves() {
-    piece destinationTile(arrOfChess);
+vector<int> Knight::getLegalMoves() {
+    Piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

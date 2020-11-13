@@ -5,14 +5,14 @@
 
 using namespace std;
 
-class rook {
+class Rook {
 private:
     const int CANDIDATE_MOVE_COORDINATES[4] = { -8, -1, 1, 8 };
     int pieceTile;
     string alliance;
     int arrOfChess[64]{};
 public:
-    rook(int Tile, string alliance, const int chess[]);
+    Rook(int Tile, string alliance, const int chess[]);
 
     static bool isValidTileCoordinate(int currentCandidate);
 
@@ -23,7 +23,7 @@ public:
     vector<int> getLegalMoves();
 };
 
-rook::rook(const int Tile, string alliance, const int chess[]) {
+Rook::Rook(const int Tile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
@@ -31,11 +31,11 @@ rook::rook(const int Tile, string alliance, const int chess[]) {
     this->alliance = move(alliance);
 }
 
-bool rook::isValidTileCoordinate(int currentCandidate) {
+bool Rook::isValidTileCoordinate(int currentCandidate) {
     return currentCandidate >= 0 && currentCandidate < 64;
 }
 
-bool rook::firstColumn(int tile, int offset) {
+bool Rook::firstColumn(int tile, int offset) {
     int firstColumnArr[] = { 0, 8, 16, 24, 32, 40, 43, 56 };
     bool temp;
     for (int i : firstColumnArr) {
@@ -50,7 +50,7 @@ bool rook::firstColumn(int tile, int offset) {
     return temp && (offset == -1);
 }
 
-bool rook::eighthColumn(int tile, int offset) {
+bool Rook::eighthColumn(int tile, int offset) {
     int eighthColumnArr[] = { 7, 15, 23, 31, 39, 47, 55, 63 };
     bool temp;
     for (int i : eighthColumnArr) {
@@ -65,8 +65,8 @@ bool rook::eighthColumn(int tile, int offset) {
     return temp && (offset == 1);
 }
 
-vector<int> rook::getLegalMoves() {
-    piece destinationTile(arrOfChess);
+vector<int> Rook::getLegalMoves() {
+    Piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

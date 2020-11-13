@@ -4,12 +4,12 @@
 
 using namespace sf;
 
-class save {
+class Save {
 public:
-    save() = default;
+    Save() = default;
 
     static bool sMain() {
-        RenderWindow window(VideoMode(650, 650), "Chess The Game Of Kings!");
+        RenderWindow window(VideoMode(650, 650), "The Chess");
         Texture texture[2];
         Sprite sprite[2];
         texture[0].loadFromFile("images/save-disk.png");

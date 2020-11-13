@@ -5,14 +5,14 @@
 
 using namespace std;
 
-class bishop {
+class Bishop {
 private:
     const int CANDIDATE_MOVE_COORDINATES[4] = { -9, -7, 9, 7 };
     int pieceTile;
     string alliance;
     int arrOfChess[64]{};
 public:
-    bishop(int pieceTile, string alliance, const int chess[]);
+    Bishop(int pieceTile, string alliance, const int chess[]);
 
     static bool isValidTileCoordinate(int currentCandidate);
 
@@ -23,7 +23,7 @@ public:
     vector<int> getLegalMoves();
 };
 
-bishop::bishop(int pieceTile, string alliance, const int chess[]) {
+Bishop::Bishop(int pieceTile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
@@ -31,11 +31,11 @@ bishop::bishop(int pieceTile, string alliance, const int chess[]) {
     this->alliance = move(alliance);
 }
 
-bool bishop::isValidTileCoordinate(int currentCandidate) {
+bool Bishop::isValidTileCoordinate(int currentCandidate) {
     return currentCandidate >= 0 && currentCandidate < 64;
 }
 
-bool bishop::firstColumn(int pieceTile, int offset) {
+bool Bishop::firstColumn(int pieceTile, int offset) {
     int firstColumnArr[] = { 0, 8, 16, 24, 32, 40, 43, 56 };
     bool temp = false;
     for (int i : firstColumnArr) {
@@ -49,7 +49,7 @@ bool bishop::firstColumn(int pieceTile, int offset) {
     return temp && (offset == 7 || offset == -9);
 }
 
-bool bishop::eighthColumn(int pieceTile, int offset) {
+bool Bishop::eighthColumn(int pieceTile, int offset) {
     int eighthColumnArr[] = { 7, 15, 23, 31, 39, 47, 55, 63 };
     bool temp = false;
     for (int i : eighthColumnArr) {
@@ -64,8 +64,8 @@ bool bishop::eighthColumn(int pieceTile, int offset) {
     return temp && (offset == -7 || offset == 9);
 }
 
-vector<int> bishop::getLegalMoves() {
-    piece destinationTile(arrOfChess);
+vector<int> Bishop::getLegalMoves() {
+    Piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {

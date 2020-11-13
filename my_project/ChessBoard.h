@@ -90,7 +90,7 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
 }
 
 void ChessBoard::mainFunctions(int u) {
-    RenderWindow window(VideoMode(650, 650), "Chess The Game Of Kings!");
+    RenderWindow window(VideoMode(650, 650), "The Chess");
     RectangleShape rectangle[64];
     Texture texture[65];
     Sprite sprite[65];
@@ -115,7 +115,7 @@ void ChessBoard::mainFunctions(int u) {
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
-                save s;
+                Save s;
                 window.close();
                 if (s.sMain()) {
                     ofstream out, out2;
@@ -130,7 +130,7 @@ void ChessBoard::mainFunctions(int u) {
                 }
             }
             if (u != 0) {
-                if (Mouse::isButtonPressed(Mouse::Right)) {
+                if (Mouse::isButtonPressed(Mouse::Right)) {               
                     for (int j = 0; j < 64; ++j) {
                         if (turn % 2 == 0 and board[j] < 0) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
@@ -175,7 +175,7 @@ void ChessBoard::mainFunctions(int u) {
                                         spritePositions[j] = spritePositions[n];
                                         spritePositions[n] = 64;
                                         if (board[j] == -5 || board[j] == 5) {
-                                            save s;
+                                            Save s;
                                             window.close();
                                             if (s.sMain()) {
                                                 ofstream out, out2;

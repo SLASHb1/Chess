@@ -5,14 +5,14 @@
 
 using namespace std;
 
-class queen {
+class Queen {
 private:
     const int CANDIDATE_MOVE_COORDINATES[8] = { -8, -1, 1, 8, -9, -7, 9, 7 };
     int pieceTile;
     string alliance;
     int arrOfChess[64]{};
 public:
-    queen(int Tile, string alliance, const int chess[]);
+    Queen(int Tile, string alliance, const int chess[]);
 
     static bool isValidTileCoordinate(int currentCandidate);
 
@@ -23,7 +23,7 @@ public:
     vector<int> getLegalMoves();
 };
 
-queen::queen(const int Tile, string alliance, const int chess[]) {
+Queen::Queen(const int Tile, string alliance, const int chess[]) {
     for (int i = 0; i < 64; ++i) {
         arrOfChess[i] = chess[i];
     }
@@ -31,11 +31,11 @@ queen::queen(const int Tile, string alliance, const int chess[]) {
     this->alliance = move(alliance);
 }
 
-bool queen::isValidTileCoordinate(int currentCandidate) {
+bool Queen::isValidTileCoordinate(int currentCandidate) {
     return currentCandidate >= 0 && currentCandidate < 64;
 }
 
-bool queen::firstColumn(int tile, int offset) {
+bool Queen::firstColumn(int tile, int offset) {
     int firstColumnArr[] = { 0, 8, 16, 24, 32, 40, 43, 56 };
     bool temp;
     for (int i : firstColumnArr) {
@@ -50,7 +50,7 @@ bool queen::firstColumn(int tile, int offset) {
     return temp && (offset == -1 || offset == 7 || offset == -9);
 }
 
-bool queen::eighthColumn(int tile, int offset) {
+bool Queen::eighthColumn(int tile, int offset) {
     int eighthColumnArr[] = { 7, 15, 23, 31, 39, 47, 55, 63 };
     bool temp;
     for (int i : eighthColumnArr) {
@@ -65,8 +65,8 @@ bool queen::eighthColumn(int tile, int offset) {
     return temp && (offset == 1 || offset == -7 || offset == 9);
 }
 
-vector<int> queen::getLegalMoves() {
-    piece destinationTile(arrOfChess);
+vector<int> Queen::getLegalMoves() {
+    Piece destinationTile(arrOfChess);
     int possibleDestinationTile;
     vector<int> legalMoves;
     for (int offset : CANDIDATE_MOVE_COORDINATES) {
