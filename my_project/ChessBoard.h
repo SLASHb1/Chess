@@ -66,9 +66,6 @@ void ChessBoard::loadTextures(Texture* texture) {
 void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* sprite) {
     for (int j = 0; j < 64; j++) {
         sprite[j].setTexture(texture[j]);
-        sprite[j].setScale(1.7f, 1.7f);
-    }
-    for (int j = 0; j < 64; ++j) {
         rectangle[j].setSize(Vector2f(650 / 8.0f, 650 / 8.0f));
     }
     int counter = 0;
