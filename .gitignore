@@ -44,3 +44,5 @@ my_project/.vs/*
 *.user
 boardpositions.txt
 spritepositions.txt
+my_project/boardpositions.txt
+my_project/spritepositions.txt
