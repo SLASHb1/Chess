@@ -26,9 +26,6 @@ int board[64] = {
         1, 2, 3, 4, 5, 3, 2, 1 };
 
 class ChessBoard {
-private:
-    const float WIDTH = 650;
-    const float HEIGHT = 650;
 public:
     void loadTextures(Texture* texture);
 
@@ -72,7 +69,7 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
         sprite[j].setScale(1.7f, 1.7f);
     }
     for (int j = 0; j < 64; ++j) {
-        rectangle[j].setSize(Vector2f(WIDTH / 8.0f, HEIGHT / 8.0f));
+        rectangle[j].setSize(Vector2f(650 / 8.0f, 650 / 8.0f));
     }
     int counter = 0;
     for (int i = 0; i < 8; ++i) {
@@ -84,7 +81,8 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
                 rectangle[counter].setFillColor(Color::White);
             }
             else {
-                rectangle[counter].setFillColor(Color::Blue);
+                Color c(160, 82, 45);
+                rectangle[counter].setFillColor(c);
             }
             counter++;
         }
@@ -92,7 +90,7 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
 }
 
 void ChessBoard::mainFunctions(int u) {
-    RenderWindow window(VideoMode(WIDTH, HEIGHT), "Chess The Game Of Kings!");
+    RenderWindow window(VideoMode(650, 650), "Chess The Game Of Kings!");
     RectangleShape rectangle[64];
     Texture texture[65];
     Sprite sprite[65];
@@ -211,7 +209,8 @@ void ChessBoard::mainFunctions(int u) {
                                             rectangle[counter].setFillColor(Color::White);
                                         }
                                         else {
-                                            rectangle[counter].setFillColor(Color::Blue);
+                                            Color c(160, 82, 45);
+                                            rectangle[counter].setFillColor(c);
                                         }
                                         counter++;
                                     }
