@@ -30,8 +30,8 @@ int main() {
     sprite[6].setTexture(texture[6]);
     sprite[7].setTexture(texture[7]);
     sprite[4].setScale(0.73f, 0.73f);
-    sprite[0].setPosition(65, 50);
-    sprite[1].setPosition(40, 140);
+    sprite[0].setPosition(45, 50);
+    sprite[1].setPosition(20, 140);
     sprite[2].setPosition(40, 240);
     sprite[3].setPosition(80, 330);
     sprite[4].setPosition(0, 0);
@@ -82,8 +82,8 @@ int main() {
                     window.close();                  
                 }
                 if (sprite[6].getGlobalBounds().contains(pos.x, pos.y)) {
-                    sprite[0].setPosition(65, 50);
-                    sprite[1].setPosition(40, 140);
+                    sprite[0].setPosition(45, 50);
+                    sprite[1].setPosition(20, 140);
                     sprite[2].setPosition(40, 240);
                     sprite[3].setPosition(80, 330);
                     sprite[5].setPosition(1000, 1000);
