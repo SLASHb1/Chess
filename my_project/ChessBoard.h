@@ -26,15 +26,31 @@ int board[64] = {
         1, 2, 3, 4, 5, 3, 2, 1 };
 
 class ChessBoard {
+private:
+    RectangleShape rectangle[64];
+    Texture texture[65];
+    Sprite sprite[65];
+    Identity box;
+    bool isMove;
+    float dx = 0, dy = 0;
+    Vector2f oldPos, newPos;
+    int n;
+    int cc, turn = 1;
+    int alliance, position;
+    Vector2f firstPos, secondPos;
+    int v;
+    int cap = 0;
 public:
-    void loadTextures(Texture* texture);
+    void loadTextures();
 
-    void loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* sprite);
+    void loadBoard();
+
+    void drawBoard(RenderWindow &window);
 
     void mainFunctions(int u);
 };
 
-void ChessBoard::loadTextures(Texture* texture) {
+void ChessBoard::loadTextures() {
     for (int i = 0; i < 64; i++) {
         if (spritePositions[i] == 0 || spritePositions[i] == 7)
             texture[i].loadFromFile("images/blackRook.png");
@@ -63,7 +79,16 @@ void ChessBoard::loadTextures(Texture* texture) {
     }
 }
 
-void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* sprite) {
+void ChessBoard::drawBoard(RenderWindow &window) {
+    for (int j = 0; j < 64; ++j) {
+        window.draw(rectangle[j]);
+    }
+    for (int j = 0; j < 65; j++) {
+        window.draw(sprite[j]);
+    }
+}
+
+void ChessBoard::loadBoard() {
     for (int j = 0; j < 64; j++) {
         sprite[j].setTexture(texture[j]);
         rectangle[j].setSize(Vector2f(650 / 8.0f, 650 / 8.0f));
@@ -88,25 +113,8 @@ void ChessBoard::loadBoard(Texture* texture, RectangleShape* rectangle, Sprite* 
 
 void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(650, 650), "The Chess");
-    RectangleShape rectangle[64];
-    Texture texture[65];
-    Sprite sprite[65];
-    loadTextures(texture);
-    loadBoard(texture, rectangle, sprite);
-    Identity box;
-    bool isMove;
-    float dx = 0, dy = 0;
-    Vector2f oldPos, newPos;
-    int n;
-    int cc, turn = 1;
-    int alliance, position;
-    Vector2f firstPos, secondPos;
-    int v;
-    int q[64];
-    static int cap = 0;
-    for (int j = 0; j < 64; ++j) {
-        q[j] = 64;
-    }
+    loadTextures();
+    loadBoard();
     while (window.isOpen()) {
         Vector2i pos = Mouse::getPosition(window);
         Event event;
@@ -164,10 +172,10 @@ void ChessBoard::mainFunctions(int u) {
                                 int spritePos = spritePositions[n];
                                 if (isMove) {
                                     turn++;
-                                    cc = q[j] = spritePositions[j];
+                                    cc = spritePositions[j];
                                     if (j != n) {
                                         sprite[spritePos].setPosition(secondPos);
-                                        sprite[cc].setPosition(100000000, 100000000);
+                                        sprite[cc].setPosition(700, 700);
                                         int suppose = spritePositions[j];
                                         spritePositions[j] = spritePositions[n];
                                         spritePositions[n] = 64;
@@ -214,17 +222,12 @@ void ChessBoard::mainFunctions(int u) {
                                 }
                             }
                         }
-                        cap = 0;
+                        cap = 0;                  
                     }
             }
         }
         window.clear();
-        for (int j = 0; j < 64; ++j)
-            window.draw(rectangle[j]);
-        for (int j = 0; j < 65; j++) {
-            if (q[j] == 64)
-                window.draw(sprite[j]);
-        }
+        drawBoard(window);
         window.display();
     }
 }
