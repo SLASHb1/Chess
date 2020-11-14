@@ -38,15 +38,13 @@ private:
     int cc, turn = 1;
     int alliance, position;
     Vector2f firstPos, secondPos;
-    int v;
     int cap = 0;
-public:
     void loadTextures();
-
     void loadBoard();
-
     void drawBoard(RenderWindow &window);
-
+    void endGame(RenderWindow &window);
+    void clearBoard();
+public:
     void mainFunctions(int u);
 };
 
@@ -111,6 +109,38 @@ void ChessBoard::loadBoard() {
     }
 }
 
+void ChessBoard::clearBoard() {
+    int counter = 0;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if ((i + j) % 2 == 0) {
+                rectangle[counter].setFillColor(Color::White);
+            }
+            else {
+                Color c(160, 82, 45);
+                rectangle[counter].setFillColor(c);
+            }
+            counter++;
+        }
+    }
+}
+
+void ChessBoard::endGame(RenderWindow &window) {
+    Save s;
+    window.close();
+    if (s.sMain()) {
+        ofstream out, out2;
+        out.open("spritePositions.txt");
+        out2.open("boardPositions.txt");
+        for (int i = 0; i < 64; i++) {
+            out << spritePositions[i] << ",";
+            out2 << board[i] << ",";
+        }
+        out.close();
+        out2.close();
+    }
+}
+
 void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(650, 650), "The Chess");
     loadTextures();
@@ -120,19 +150,7 @@ void ChessBoard::mainFunctions(int u) {
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
-                Save s;
-                window.close();
-                if (s.sMain()) {
-                    ofstream out, out2;
-                    out.open("spritePositions.txt");
-                    out2.open("boardPositions.txt");
-                    for (int i = 0; i < 64; i++) {
-                        out << spritePositions[i] << ",";
-                        out2 << board[i] << ",";
-                    }
-                    out.close();
-                    out2.close();
-                }
+                endGame(window);
             }
             if (u != 0) {
                 if (Mouse::isButtonPressed(Mouse::Right)) {               
@@ -141,8 +159,8 @@ void ChessBoard::mainFunctions(int u) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 n = j;
                                 firstPos = rectangle[j].getPosition();
-                                v = spritePositions[j];
-                                rectangle[n].setFillColor(Color::Red);
+                                clearBoard();
+                                rectangle[n].setFillColor(Color::Red);                      
                                 if (spritePositions[n] != 64) {
                                     cap++;
                                 }
@@ -154,7 +172,7 @@ void ChessBoard::mainFunctions(int u) {
                             if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
                                 n = j;
                                 firstPos = rectangle[j].getPosition();
-                                v = spritePositions[j];
+                                clearBoard();
                                 rectangle[n].setFillColor(Color::Red);
                                 if (spritePositions[n] != 64) {
                                     cap++;
@@ -180,22 +198,10 @@ void ChessBoard::mainFunctions(int u) {
                                         spritePositions[j] = spritePositions[n];
                                         spritePositions[n] = 64;
                                         if (board[j] == -5 || board[j] == 5) {
-                                            Save s;
-                                            window.close();
-                                            if (s.sMain()) {
-                                                ofstream out, out2;
-                                                out.open("spritePositions.txt");
-                                                out2.open("boardPositions.txt");
-                                                for (int i = 0; i < 64; i++) {
-                                                    out << spritePositions[i] << ",";
-                                                    out2 << board[i] << ",";
-                                                }
-                                                out.close();
-                                                out2.close();
-                                            }
+                                            endGame(window);
                                         }
                                         if (j <= 63 and j >= 56 and board[n] == -6) {
-                                            board[j] = -4;
+                                            board[j] = -4;                               
                                         }
                                         else if (j >= 0 and j <= 7 and board[n] == 6) {
                                             board[j] = 4;
@@ -207,19 +213,7 @@ void ChessBoard::mainFunctions(int u) {
                                         n = j;
                                     }
                                 }
-                                int counter = 0;
-                                for (int i = 0; i < 8; ++i) {
-                                    for (int j = 0; j < 8; ++j) {
-                                        if ((i + j) % 2 == 0) {
-                                            rectangle[counter].setFillColor(Color::White);
-                                        }
-                                        else {
-                                            Color c(160, 82, 45);
-                                            rectangle[counter].setFillColor(c);
-                                        }
-                                        counter++;
-                                    }
-                                }
+                                clearBoard();
                             }
                         }
                         cap = 0;                  
