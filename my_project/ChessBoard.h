@@ -52,6 +52,8 @@ private:
 
     void gripFigure(int j, Vector2i pos);
 
+    void makeMove(int j, int spritePos, RenderWindow& window);
+
 public:
     void mainFunctions(int u);
 };
@@ -161,6 +163,32 @@ void ChessBoard::gripFigure(int j, Vector2i pos) {
     }
 }
 
+void ChessBoard::makeMove(int j, int spritePos, RenderWindow &window) {
+    turn++;
+    cc = spritePositions[j];
+    if (j != n) {
+        sprite[spritePos].setPosition(secondPos);
+        sprite[cc].setPosition(700, 700);
+        int suppose = spritePositions[j];
+        spritePositions[j] = spritePositions[n];
+        spritePositions[n] = 64;
+        if (board[j] == -5 || board[j] == 5) {
+            endGame(window);
+        }
+        if (j <= 63 and j >= 56 and board[n] == -6) {
+            board[j] = -4;
+        }
+        else if (j >= 0 and j <= 7 and board[n] == 6) {
+            board[j] = 4;
+        }
+        else {
+            board[j] = board[n];
+            board[n] = 0;
+        }
+        n = j;
+    }
+}
+
 void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(650, 650), "The Chess");
     loadTextures();
@@ -188,29 +216,7 @@ void ChessBoard::mainFunctions(int u) {
                                 secondPos = rectangle[j].getPosition();
                                 int spritePos = spritePositions[n];
                                 if (isMove) {
-                                    turn++;
-                                    cc = spritePositions[j];
-                                    if (j != n) {
-                                        sprite[spritePos].setPosition(secondPos);
-                                        sprite[cc].setPosition(700, 700);
-                                        int suppose = spritePositions[j];
-                                        spritePositions[j] = spritePositions[n];
-                                        spritePositions[n] = 64;
-                                        if (board[j] == -5 || board[j] == 5) {
-                                            endGame(window);
-                                        }
-                                        if (j <= 63 and j >= 56 and board[n] == -6) {
-                                            board[j] = -4;
-                                        }
-                                        else if (j >= 0 and j <= 7 and board[n] == 6) {
-                                            board[j] = 4;
-                                        }
-                                        else {
-                                            board[j] = board[n];
-                                            board[n] = 0;
-                                        }
-                                        n = j;
-                                    }
+                                    makeMove(j, spritePos, window);
                                 }
                                 clearBoard();
                             }
