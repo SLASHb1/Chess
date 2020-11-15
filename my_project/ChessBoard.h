@@ -28,8 +28,8 @@ int board[64] = {
 class ChessBoard {
 private:
     RectangleShape rectangle[64];
-    Texture texture[65];
-    Sprite sprite[65];
+    Texture texture[64];
+    Sprite sprite[64];
     Identity box;
     bool isMove;
     float dx = 0, dy = 0;
@@ -91,7 +91,7 @@ void ChessBoard::drawBoard(RenderWindow& window) {
     for (int j = 0; j < 64; ++j) {
         window.draw(rectangle[j]);
     }
-    for (int j = 0; j < 65; ++j) {
+    for (int j = 0; j < 64; ++j) {
         window.draw(sprite[j]);
     }
 }
@@ -169,7 +169,6 @@ void ChessBoard::makeMove(int j, int spritePos, RenderWindow &window) {
     if (j != n) {
         sprite[spritePos].setPosition(secondPos);
         sprite[cc].setPosition(700, 700);
-        int suppose = spritePositions[j];
         spritePositions[j] = spritePositions[n];
         spritePositions[n] = 64;
         if (board[j] == -5 || board[j] == 5) {
