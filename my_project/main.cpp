@@ -6,7 +6,6 @@
 using namespace sf;
 Texture texture[8];
 Sprite sprite[8];
-RectangleShape rectangle;
 
 int main() {
     RenderWindow window(VideoMode(650, 650), "The Chess");
@@ -20,7 +19,6 @@ int main() {
     texture[6].loadFromFile("images/back.png");
     texture[7].loadFromFile("images/note.png");
 
-    rectangle.setSize(Vector2f(650, 650));
     for (int i = 0; i < 8; i++) {
         sprite[i].setTexture(texture[i]);
     }
@@ -33,7 +31,6 @@ int main() {
     sprite[5].setPosition(1000, 1000);
     sprite[6].setPosition(1000, 1000);
     sprite[7].setPosition(1000, 1000);
-    rectangle.setFillColor(Color::White);
 
     while (window.isOpen()) {
         Vector2i pos = Mouse::getPosition(window);
@@ -89,7 +86,6 @@ int main() {
         }
 
         window.clear();
-        //window.draw(rectangle);
         for (int i = 0; i < 8; i++) {
             window.draw(sprite[i]);
         }
