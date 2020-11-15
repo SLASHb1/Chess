@@ -21,14 +21,9 @@ int main() {
     texture[7].loadFromFile("images/note.png");
 
     rectangle.setSize(Vector2f(650, 650));
-    sprite[0].setTexture(texture[0]);
-    sprite[1].setTexture(texture[1]);
-    sprite[2].setTexture(texture[2]);
-    sprite[3].setTexture(texture[3]);
-    sprite[4].setTexture(texture[4]);
-    sprite[5].setTexture(texture[5]);
-    sprite[6].setTexture(texture[6]);
-    sprite[7].setTexture(texture[7]);
+    for (int i = 0; i < 8; i++) {
+        sprite[i].setTexture(texture[i]);
+    }
     sprite[0].setScale(0.73f, 0.73f);
     sprite[0].setPosition(0, 0);
     sprite[1].setPosition(20, 140);
@@ -94,7 +89,7 @@ int main() {
         }
 
         window.clear();
-        window.draw(rectangle);
+        //window.draw(rectangle);
         for (int i = 0; i < 8; i++) {
             window.draw(sprite[i]);
         }
