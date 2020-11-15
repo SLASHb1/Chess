@@ -47,7 +47,7 @@ int main() {
             if (event.type == Event::Closed) {
                 window.close();
             }
-            if (Mouse::isButtonPressed(Mouse::Right) || Mouse::isButtonPressed(Mouse::Left)) {
+            if (Mouse::isButtonPressed(Mouse::Left)) {
                 if (sprite[4].getGlobalBounds().contains(pos.x, pos.y)) {
                     window.close();
                     ChessBoard graphics;
