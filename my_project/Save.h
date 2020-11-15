@@ -37,9 +37,9 @@ public:
                 }
             }
             window.clear();
-            window.draw(sprite[0]);
-            window.draw(sprite[1]);
-            window.draw(sprite[2]);
+            for (int i = 0; i < 3; i++) {
+                window.draw(sprite[i]);
+            }
             window.display();
         }
         return false;

@@ -39,11 +39,19 @@ private:
     int alliance, position;
     Vector2f firstPos, secondPos;
     int cap = 0;
+
     void loadTextures();
+
     void loadBoard();
-    void drawBoard(RenderWindow &window);
-    void endGame(RenderWindow &window);
+
+    void drawBoard(RenderWindow& window);
+
+    void endGame(RenderWindow& window);
+
     void clearBoard();
+
+    void gripFigure(int j, Vector2i pos);
+
 public:
     void mainFunctions(int u);
 };
@@ -77,11 +85,11 @@ void ChessBoard::loadTextures() {
     }
 }
 
-void ChessBoard::drawBoard(RenderWindow &window) {
+void ChessBoard::drawBoard(RenderWindow& window) {
     for (int j = 0; j < 64; ++j) {
         window.draw(rectangle[j]);
     }
-    for (int j = 0; j < 65; j++) {
+    for (int j = 0; j < 65; ++j) {
         window.draw(sprite[j]);
     }
 }
@@ -125,7 +133,7 @@ void ChessBoard::clearBoard() {
     }
 }
 
-void ChessBoard::endGame(RenderWindow &window) {
+void ChessBoard::endGame(RenderWindow& window) {
     Save s;
     window.close();
     if (s.sMain()) {
@@ -141,6 +149,18 @@ void ChessBoard::endGame(RenderWindow &window) {
     }
 }
 
+void ChessBoard::gripFigure(int j, Vector2i pos) {
+    if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
+        n = j;
+        firstPos = rectangle[j].getPosition();
+        clearBoard();
+        rectangle[n].setFillColor(Color::Red);
+        if (spritePositions[n] != 64) {
+            cap++;
+        }
+    }
+}
+
 void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(650, 650), "The Chess");
     loadTextures();
@@ -153,31 +173,10 @@ void ChessBoard::mainFunctions(int u) {
                 endGame(window);
             }
             if (u != 0) {
-                if (Mouse::isButtonPressed(Mouse::Right)) {               
+                if (Mouse::isButtonPressed(Mouse::Right)) {
                     for (int j = 0; j < 64; ++j) {
-                        if (turn % 2 == 0 and board[j] < 0) {
-                            if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
-                                n = j;
-                                firstPos = rectangle[j].getPosition();
-                                clearBoard();
-                                rectangle[n].setFillColor(Color::Red);                      
-                                if (spritePositions[n] != 64) {
-                                    cap++;
-                                }
-                            }
-                        }
-                    }
-                    for (int j = 0; j < 64; ++j) {
-                        if (turn % 2 != 0 and board[j] > 0) {
-                            if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
-                                n = j;
-                                firstPos = rectangle[j].getPosition();
-                                clearBoard();
-                                rectangle[n].setFillColor(Color::Red);
-                                if (spritePositions[n] != 64) {
-                                    cap++;
-                                }
-                            }
+                        if ((turn % 2 == 0 && board[j] < 0) || (turn % 2 != 0 && board[j] > 0)) {
+                            gripFigure(j, pos);
                         }
                     }
                 }
@@ -201,7 +200,7 @@ void ChessBoard::mainFunctions(int u) {
                                             endGame(window);
                                         }
                                         if (j <= 63 and j >= 56 and board[n] == -6) {
-                                            board[j] = -4;                               
+                                            board[j] = -4;
                                         }
                                         else if (j >= 0 and j <= 7 and board[n] == 6) {
                                             board[j] = 4;
@@ -216,7 +215,7 @@ void ChessBoard::mainFunctions(int u) {
                                 clearBoard();
                             }
                         }
-                        cap = 0;                  
+                        cap = 0;
                     }
             }
         }
