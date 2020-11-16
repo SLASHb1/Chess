@@ -9,9 +9,9 @@ Sprite sprite[8];
 
 int main() {
     RenderWindow window(VideoMode(650, 650), "The Chess");
-    
+
     texture[0].loadFromFile("images/board.png");
-    texture[1].loadFromFile("images/refresh-button.png");
+    texture[1].loadFromFile("images/load-button.png");
     texture[2].loadFromFile("images/about.png");
     texture[3].loadFromFile("images/exit.png");
     texture[4].loadFromFile("images/play-button.png");
@@ -47,7 +47,7 @@ int main() {
                 }
                 if (sprite[1].getGlobalBounds().contains(pos.x, pos.y)) {
                     window.close();
-                    ifstream in, in2;
+                    std::ifstream in, in2;
                     in.open("spritePositions.txt");
                     in2.open("boardPositions.txt");
                     for (int j = 0; j < 64; j++) {
@@ -67,11 +67,11 @@ int main() {
                     sprite[3].setPosition(1000, 1000);
                     sprite[4].setPosition(1000, 1000);
                     sprite[5].setPosition(0, 40);
-                    sprite[6].setPosition(20, 320);                  
-                    sprite[7].setPosition(420, 595);                  
+                    sprite[6].setPosition(20, 320);
+                    sprite[7].setPosition(420, 595);
                 }
                 if (sprite[3].getGlobalBounds().contains(pos.x, pos.y)) {
-                    window.close();                  
+                    window.close();
                 }
                 if (sprite[6].getGlobalBounds().contains(pos.x, pos.y)) {
                     sprite[1].setPosition(20, 140);
