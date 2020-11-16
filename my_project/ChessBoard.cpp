@@ -2,6 +2,7 @@
 #include "save.h"
 #include <fstream>
 #include "ChessBoard.h"
+
 using namespace sf;
 using namespace std;
 
@@ -32,6 +33,23 @@ void ChessBoard::loadTextures() {
         if (spritePositions[i] >= 48 and spritePositions[i] <= 55)
             texture[i].loadFromFile("images/whitePawn.png");
     }
+}
+
+void ChessBoard::setBoard() {
+    ifstream in, in2;
+    in.open("spritePositions.txt");
+    in2.open("boardPositions.txt");
+    for (int j = 0; j < 64; j++) {
+        int a, b;
+        char c, d;
+        in >> a >> c;
+        spritePositions[j] = a;
+        in2 >> b >> d;
+        board[j] = b;
+    }
+    in >> turn;
+    in.close();
+    in2.close();
 }
 
 void ChessBoard::drawBoard(RenderWindow& window) {
@@ -93,6 +111,7 @@ void ChessBoard::endGame(RenderWindow& window) {
             out << spritePositions[i] << ",";
             out2 << board[i] << ",";
         }
+        out << turn;
         out.close();
         out2.close();
     }
@@ -101,7 +120,6 @@ void ChessBoard::endGame(RenderWindow& window) {
 void ChessBoard::gripFigure(int j, Vector2i pos) {
     if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
         n = j;
-        firstPos = rectangle[j].getPosition();
         clearBoard();
         rectangle[n].setFillColor(Color::Red);
         if (spritePositions[n] != 64) {
@@ -118,18 +136,18 @@ void ChessBoard::makeMove(int j, int spritePos, RenderWindow& window) {
         sprite[cc].setPosition(700, 700);
         spritePositions[j] = spritePositions[n];
         spritePositions[n] = 64;
-        if (board[j] == -5 || board[j] == 5) {
+        if (board[j] == BLACK_KING || board[j] == WHITE_KING) {
             endGame(window);
         }
-        if (j <= 63 and j >= 56 and board[n] == -6) {
-            board[j] = -4;
+        if (j <= 63 and j >= 56 and board[n] == BLACK_PAWN) {
+            board[j] = BLACK_QUEEN;
         }
-        else if (j >= 0 and j <= 7 and board[n] == 6) {
-            board[j] = 4;
+        else if (j >= 0 and j <= 7 and board[n] == WHITE_PAWN) {
+            board[j] = WHITE_QUEEN;
         }
         else {
             board[j] = board[n];
-            board[n] = 0;
+            board[n] = FREE;
         }
         n = j;
     }
@@ -137,6 +155,9 @@ void ChessBoard::makeMove(int j, int spritePos, RenderWindow& window) {
 
 void ChessBoard::mainFunctions(int u) {
     RenderWindow window(VideoMode(650, 650), "The Chess");
+    if (u == 0) {
+        setBoard();
+    }
     loadTextures();
     loadBoard();
     while (window.isOpen()) {
@@ -146,30 +167,28 @@ void ChessBoard::mainFunctions(int u) {
             if (event.type == Event::Closed) {
                 endGame(window);
             }
-            if (u != 0) {
-                if (Mouse::isButtonPressed(Mouse::Right)) {
-                    for (int j = 0; j < 64; ++j) {
-                        if ((turn % 2 == 0 && board[j] < 0) || (turn % 2 != 0 && board[j] > 0)) {
-                            gripFigure(j, pos);
-                        }
+            if (Mouse::isButtonPressed(Mouse::Right)) {
+                for (int j = 0; j < 64; ++j) {
+                    if ((turn % 2 == 0 && board[j] < 0) || (turn % 2 != 0 && board[j] > 0)) {
+                        gripFigure(j, pos);
                     }
                 }
-                if (cap != 0)
-                    if (Mouse::isButtonPressed(Mouse::Left)) {
-                        for (int j = 0; j < 64; ++j) {
-                            if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
-                                isMove = box.identifier(n, j, board[n], board);
-                                secondPos = rectangle[j].getPosition();
-                                int spritePos = spritePositions[n];
-                                if (isMove) {
-                                    makeMove(j, spritePos, window);
-                                }
-                                clearBoard();
-                            }
-                        }
-                        cap = 0;
-                    }
             }
+            if (cap != 0)
+                if (Mouse::isButtonPressed(Mouse::Left)) {
+                    for (int j = 0; j < 64; ++j) {
+                        if (rectangle[j].getGlobalBounds().contains(pos.x, pos.y)) {
+                            isMove = box.identifier(n, j, board[n], board);
+                            secondPos = rectangle[j].getPosition();
+                            int spritePos = spritePositions[n];
+                            if (isMove) {
+                                makeMove(j, spritePos, window);
+                            }
+                            clearBoard();
+                        }
+                    }
+                    cap = 0;
+                }
         }
         window.clear();
         drawBoard(window);

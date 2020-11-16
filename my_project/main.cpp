@@ -4,6 +4,7 @@
 #include "ChessBoard.h"
 
 using namespace sf;
+using namespace std;
 Texture texture[8];
 Sprite sprite[8];
 
@@ -47,17 +48,6 @@ int main() {
                 }
                 if (sprite[1].getGlobalBounds().contains(pos.x, pos.y)) {
                     window.close();
-                    std::ifstream in, in2;
-                    in.open("spritePositions.txt");
-                    in2.open("boardPositions.txt");
-                    for (int j = 0; j < 64; j++) {
-                        int a, b;
-                        char c, d;
-                        in >> a >> c;
-                        spritePositions[j] = a;
-                        in2 >> b >> d;
-                        board[j] = b;
-                    }
                     ChessBoard graphics;
                     graphics.mainFunctions(0);
                 }
