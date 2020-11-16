@@ -39,7 +39,6 @@ my_project/x64/*
 my_project/Debug/*
 my_project/Release/*
 my_project/.vs/*
-*.vcxproj
 *.filters
 *.user
 my_project/boardpositions.txt
